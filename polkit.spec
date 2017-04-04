@@ -6,17 +6,17 @@
 #
 Name     : polkit
 Version  : 0.113
-Release  : 2
+Release  : 3
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz
 Source99 : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz.sign
 Summary  : PolicyKit Authorization API
 Group    : Development/Tools
-License  : Apache-2.0 GPL-2.0 LGPL-2.0
+License  : Apache-2.0 LGPL-2.0
 Requires: polkit-bin
 Requires: polkit-config
-Requires: polkit-lib
 Requires: polkit-data
+Requires: polkit-lib
 Requires: polkit-locales
 BuildRequires : Linux-PAM-dev
 BuildRequires : automake
@@ -113,12 +113,12 @@ locales components for the polkit package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1491230646
+export SOURCE_DATE_EPOCH=1491326471
 %reconfigure --disable-static --disable-gtk-doc-html --disable-man-pages --enable-libsystemd-login --with-os-type=ClearLinux
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1491230646
+export SOURCE_DATE_EPOCH=1491326471
 rm -rf %{buildroot}
 %make_install
 %find_lang polkit-1
@@ -142,8 +142,11 @@ rm -rf %{buildroot}
 
 %files data
 %defattr(-,root,root,-)
+/usr/lib64/girepository-1.0/Polkit-1.0.typelib
+/usr/lib64/girepository-1.0/PolkitAgent-1.0.typelib
 /usr/share/dbus-1/system-services/org.freedesktop.PolicyKit1.service
 /usr/share/dbus-1/system.d/org.freedesktop.PolicyKit1.conf
+/usr/share/gir-1.0/*.gir
 /usr/share/pam.d/polkit-1
 /usr/share/polkit-1/actions/org.freedesktop.policykit.examples.pkexec.policy
 /usr/share/polkit-1/actions/org.freedesktop.policykit.policy
@@ -179,13 +182,10 @@ rm -rf %{buildroot}
 /usr/include/polkit-1/polkitagent/polkitagentsession.h
 /usr/include/polkit-1/polkitagent/polkitagenttextlistener.h
 /usr/include/polkit-1/polkitagent/polkitagenttypes.h
-/usr/lib64/girepository-1.0/Polkit-1.0.typelib
-/usr/lib64/girepository-1.0/PolkitAgent-1.0.typelib
 /usr/lib64/libpolkit-agent-1.so
 /usr/lib64/libpolkit-gobject-1.so
 /usr/lib64/pkgconfig/polkit-agent-1.pc
 /usr/lib64/pkgconfig/polkit-gobject-1.pc
-/usr/share/gir-1.0/*.gir
 
 %files lib
 %defattr(-,root,root,-)
