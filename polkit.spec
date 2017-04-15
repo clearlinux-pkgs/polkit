@@ -6,7 +6,7 @@
 #
 Name     : polkit
 Version  : 0.113
-Release  : 3
+Release  : 4
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz
 Source99 : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz.sign
@@ -113,12 +113,19 @@ locales components for the polkit package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1491326471
+export SOURCE_DATE_EPOCH=1492279852
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
 %reconfigure --disable-static --disable-gtk-doc-html --disable-man-pages --enable-libsystemd-login --with-os-type=ClearLinux
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1491326471
+export SOURCE_DATE_EPOCH=1492279852
 rm -rf %{buildroot}
 %make_install
 %find_lang polkit-1
