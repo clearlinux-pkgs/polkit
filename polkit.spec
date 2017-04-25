@@ -6,7 +6,7 @@
 #
 Name     : polkit
 Version  : 0.113
-Release  : 4
+Release  : 5
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz
 Source99 : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz.sign
@@ -42,6 +42,7 @@ BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(mozjs-24)
 Patch1: mozjs24.patch
 Patch2: 0001-data-Use-stateless-system-directories-for-d-bus-PAM-.patch
+Patch3: 0001-pkexec-Support-a-stateless-configuration.patch
 
 %description
 OVERVIEW
@@ -110,10 +111,14 @@ locales components for the polkit package.
 %setup -q -n polkit-0.113
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1492279852
+export SOURCE_DATE_EPOCH=1493125570
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -125,7 +130,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1492279852
+export SOURCE_DATE_EPOCH=1493125570
 rm -rf %{buildroot}
 %make_install
 %find_lang polkit-1
