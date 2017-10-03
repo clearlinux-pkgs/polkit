@@ -1,2 +1,4 @@
 # This file contains the output files that need %exclude. Full path
 # names, one per line.
+/usr/share/dbus-1/system.d/org.freedesktop.PolicyKit1.conf
+/usr/lib/polkit-1/polkitd
