@@ -93,6 +93,7 @@ dev components for the polkit package.
 Summary: lib components for the polkit package.
 Group: Libraries
 Requires: polkit-data
+Requires: polkit-config
 
 %description lib
 lib components for the polkit package.
@@ -117,27 +118,27 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1507041050
+export SOURCE_DATE_EPOCH=1493125570
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
 %reconfigure --disable-static --disable-gtk-doc-html --disable-man-pages --enable-libsystemd-login --with-os-type=ClearLinux
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1507041050
+export SOURCE_DATE_EPOCH=1493125570
 rm -rf %{buildroot}
 %make_install
 %find_lang polkit-1
 
 %files
 %defattr(-,root,root,-)
-%exclude /usr/lib/polkit-1/polkitd
 /usr/lib/polkit-1/polkit-agent-helper-1
+/usr/lib/polkit-1/polkitd
 
 %files bin
 %defattr(-,root,root,-)
@@ -153,10 +154,10 @@ rm -rf %{buildroot}
 
 %files data
 %defattr(-,root,root,-)
-%exclude /usr/share/dbus-1/system.d/org.freedesktop.PolicyKit1.conf
 /usr/lib64/girepository-1.0/Polkit-1.0.typelib
 /usr/lib64/girepository-1.0/PolkitAgent-1.0.typelib
 /usr/share/dbus-1/system-services/org.freedesktop.PolicyKit1.service
+/usr/share/dbus-1/system.d/org.freedesktop.PolicyKit1.conf
 /usr/share/gir-1.0/*.gir
 /usr/share/pam.d/polkit-1
 /usr/share/polkit-1/actions/org.freedesktop.policykit.examples.pkexec.policy
