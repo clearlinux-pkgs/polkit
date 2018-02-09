@@ -6,7 +6,7 @@
 #
 Name     : polkit
 Version  : 0.113
-Release  : 8
+Release  : 9
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz
 Source99 : https://www.freedesktop.org/software/polkit/releases/polkit-0.113.tar.gz.sign
@@ -93,7 +93,6 @@ dev components for the polkit package.
 Summary: lib components for the polkit package.
 Group: Libraries
 Requires: polkit-data
-Requires: polkit-config
 
 %description lib
 lib components for the polkit package.
@@ -118,19 +117,19 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1493125570
+export SOURCE_DATE_EPOCH=1518189044
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 %reconfigure --disable-static --disable-gtk-doc-html --disable-man-pages --enable-libsystemd-login --with-os-type=ClearLinux
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1493125570
+export SOURCE_DATE_EPOCH=1518189044
 rm -rf %{buildroot}
 %make_install
 %find_lang polkit-1
