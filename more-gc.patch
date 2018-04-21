@@ -1,0 +1,20 @@
+--- polkit-0.114/src/polkitbackend/polkitbackendjsauthority.cpp~	2018-04-03 18:16:49.000000000 +0000
++++ polkit-0.114/src/polkitbackend/polkitbackendjsauthority.cpp	2018-04-21 15:10:03.610601873 +0000
+@@ -1169,7 +1169,7 @@
+   if (ret == NULL)
+     ret = g_list_prepend (ret, polkit_unix_user_new (0));
+ 
+-  JS_MaybeGC (authority->priv->cx);
++  JS_GC (authority->priv->cx);
+ 
+   JS_EndRequest (authority->priv->cx);
+ 
+@@ -1271,7 +1271,7 @@
+     ret = POLKIT_IMPLICIT_AUTHORIZATION_NOT_AUTHORIZED;
+   g_free (ret_str);
+ 
+-  JS_MaybeGC (authority->priv->cx);
++  JS_GC (authority->priv->cx);
+ 
+   JS_EndRequest (authority->priv->cx);
+ 
