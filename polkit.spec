@@ -6,7 +6,7 @@
 #
 Name     : polkit
 Version  : 0.114
-Release  : 11
+Release  : 12
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.114.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.114.tar.gz
 Source99 : https://www.freedesktop.org/software/polkit/releases/polkit-0.114.tar.gz.sign
