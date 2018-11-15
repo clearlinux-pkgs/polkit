@@ -2,4 +2,3 @@ Configure miss: if gcc supports flag -Werror=parenthesis in envvar CFLAGS
 Configure miss: netgroup.h usability
 Configure miss: netgroup.h presence
 Configure miss: netgroup.h
-Configure miss: polkitbackendjsauthority.cpp:1295:30: warning: format not a string literal and no format arguments [-Wformat-security]
