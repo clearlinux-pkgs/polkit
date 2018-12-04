@@ -2,3 +2,4 @@
 0001-data-Use-stateless-system-directories-for-d-bus-PAM-.patch
 0001-pkexec-Support-a-stateless-configuration.patch
 more-gc.patch
+CVE-2018-19788.patch
