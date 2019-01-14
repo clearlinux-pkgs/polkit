@@ -3,3 +3,4 @@
 0001-pkexec-Support-a-stateless-configuration.patch
 more-gc.patch
 CVE-2018-19788.patch
+CVE-2019-6133.patch
