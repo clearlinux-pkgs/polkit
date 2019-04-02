@@ -1,0 +1,34 @@
+From 4fcd23ea997e52370ef2ff2fa88da162518f8226 Mon Sep 17 00:00:00 2001
+From: Auke Kok <auke-jan.h.kok@intel.com>
+Date: Tue, 2 Apr 2019 16:23:32 -0700
+Subject: [PATCH] Don't complain about /etc/polkit-2/rules.d/ missing.
+
+---
+ src/polkitbackend/polkitbackendjsauthority.cpp | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/src/polkitbackend/polkitbackendjsauthority.cpp b/src/polkitbackend/polkitbackendjsauthority.cpp
+index 517f3c6..685e60c 100644
+--- a/src/polkitbackend/polkitbackendjsauthority.cpp
++++ b/src/polkitbackend/polkitbackendjsauthority.cpp
+@@ -278,10 +278,13 @@ load_scripts (PolkitBackendJsAuthority  *authority)
+                         &error);
+       if (dir == NULL)
+         {
+-          polkit_backend_authority_log (POLKIT_BACKEND_AUTHORITY (authority),
+-                                        "Error opening rules directory: %s (%s, %d)",
+-                                        error->message, g_quark_to_string (error->domain), error->code);
+-          g_clear_error (&error);
++          if (g_strcmp0(dir_name, PACKAGE_SYSCONF_DIR "/polkit-1/rules.d") != 0)
++          {
++            polkit_backend_authority_log (POLKIT_BACKEND_AUTHORITY (authority),
++                                          "Error opening rules directory: %s (%s, %d)",
++                                          error->message, g_quark_to_string (error->domain), error->code);
++            g_clear_error (&error);
++          }
+         }
+       else
+         {
+-- 
+2.21.0
+

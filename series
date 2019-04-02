@@ -1,6 +1,6 @@
-#mozjs24.patch
 0001-data-Use-stateless-system-directories-for-d-bus-PAM-.patch
-0001-pkexec-Support-a-stateless-configuration.patch
+0002-pkexec-Support-a-stateless-configuration.patch
+0003-Don-t-complain-about-etc-polkit-2-rules.d-missing.patch
 more-gc.patch
 CVE-2018-19788.patch
 CVE-2019-6133.patch

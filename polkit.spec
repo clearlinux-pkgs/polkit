@@ -6,7 +6,7 @@
 #
 Name     : polkit
 Version  : 0.115
-Release  : 15
+Release  : 16
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.115.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.115.tar.gz
 Source99 : https://www.freedesktop.org/software/polkit/releases/polkit-0.115.tar.gz.sign
@@ -44,10 +44,11 @@ BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(mozjs-24)
 BuildRequires : pkgconfig(mozjs-52)
 Patch1: 0001-data-Use-stateless-system-directories-for-d-bus-PAM-.patch
-Patch2: 0001-pkexec-Support-a-stateless-configuration.patch
-Patch3: more-gc.patch
-Patch4: CVE-2018-19788.patch
-Patch5: CVE-2019-6133.patch
+Patch2: 0002-pkexec-Support-a-stateless-configuration.patch
+Patch3: 0003-Don-t-complain-about-etc-polkit-2-rules.d-missing.patch
+Patch4: more-gc.patch
+Patch5: CVE-2018-19788.patch
+Patch6: CVE-2019-6133.patch
 
 %description
 OVERVIEW
@@ -128,13 +129,14 @@ services components for the polkit package.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1547487569
+export SOURCE_DATE_EPOCH=1554247603
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -146,7 +148,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1547487569
+export SOURCE_DATE_EPOCH=1554247603
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/polkit
 cp COPYING %{buildroot}/usr/share/package-licenses/polkit/COPYING
