@@ -6,13 +6,13 @@
 #
 Name     : polkit
 Version  : 0.115
-Release  : 16
+Release  : 17
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.115.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.115.tar.gz
 Source99 : https://www.freedesktop.org/software/polkit/releases/polkit-0.115.tar.gz.sign
 Summary  : PolicyKit Authentication Agent API
 Group    : Development/Tools
-License  : Apache-2.0 LGPL-2.0
+License  : Apache-2.0 GPL-2.0 LGPL-2.0
 Requires: polkit-bin = %{version}-%{release}
 Requires: polkit-data = %{version}-%{release}
 Requires: polkit-lib = %{version}-%{release}
@@ -83,6 +83,7 @@ Requires: polkit-lib = %{version}-%{release}
 Requires: polkit-bin = %{version}-%{release}
 Requires: polkit-data = %{version}-%{release}
 Provides: polkit-devel = %{version}-%{release}
+Requires: polkit = %{version}-%{release}
 
 %description dev
 dev components for the polkit package.
@@ -136,7 +137,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1554247603
+export SOURCE_DATE_EPOCH=1555635645
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -148,7 +149,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1554247603
+export SOURCE_DATE_EPOCH=1555635645
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/polkit
 cp COPYING %{buildroot}/usr/share/package-licenses/polkit/COPYING
