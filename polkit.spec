@@ -6,10 +6,10 @@
 #
 Name     : polkit
 Version  : 0.116
-Release  : 18
+Release  : 19
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz
-Source99 : https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz.sign
+Source1 : https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz.sign
 Summary  : PolicyKit Authorization API
 Group    : Development/Tools
 License  : Apache-2.0 LGPL-2.0
@@ -40,7 +40,6 @@ BuildRequires : pkgconfig(gio-unix-2.0)
 BuildRequires : pkgconfig(gmodule-2.0)
 BuildRequires : pkgconfig(gobject-introspection-1.0)
 BuildRequires : pkgconfig(libsystemd)
-BuildRequires : pkgconfig(mozjs-24)
 BuildRequires : pkgconfig(mozjs-60)
 Patch1: 0001-data-Use-stateless-system-directories-for-d-bus-PAM-.patch
 Patch2: 0002-pkexec-Support-a-stateless-configuration.patch
@@ -131,8 +130,8 @@ services components for the polkit package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1561401737
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1566249349
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -145,7 +144,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1561401737
+export SOURCE_DATE_EPOCH=1566249349
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/polkit
 cp COPYING %{buildroot}/usr/share/package-licenses/polkit/COPYING
