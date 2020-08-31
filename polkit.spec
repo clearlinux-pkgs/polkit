@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x8CEB3030FFDCE258 (jrybar@redhat.com)
 #
 Name     : polkit
-Version  : 0.116
-Release  : 19
-URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz
-Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz
-Source1 : https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz.sign
+Version  : 0.117
+Release  : 20
+URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.117.tar.gz
+Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.117.tar.gz
+Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-0.117.tar.gz.sign
 Summary  : PolicyKit Authorization API
 Group    : Development/Tools
 License  : Apache-2.0 LGPL-2.0
@@ -40,7 +40,7 @@ BuildRequires : pkgconfig(gio-unix-2.0)
 BuildRequires : pkgconfig(gmodule-2.0)
 BuildRequires : pkgconfig(gobject-introspection-1.0)
 BuildRequires : pkgconfig(libsystemd)
-BuildRequires : pkgconfig(mozjs-60)
+BuildRequires : pkgconfig(mozjs-68)
 Patch1: 0001-data-Use-stateless-system-directories-for-d-bus-PAM-.patch
 Patch2: 0002-pkexec-Support-a-stateless-configuration.patch
 Patch3: 0003-Don-t-complain-about-etc-polkit-2-rules.d-missing.patch
@@ -120,7 +120,8 @@ services components for the polkit package.
 
 
 %prep
-%setup -q -n polkit-0.116
+%setup -q -n polkit-0.117
+cd %{_builddir}/polkit-0.117
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -131,25 +132,25 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1566249349
+export SOURCE_DATE_EPOCH=1598917480
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 %reconfigure --disable-static --disable-gtk-doc-html --disable-man-pages --enable-libsystemd-login --with-os-type=ClearLinux
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1566249349
+export SOURCE_DATE_EPOCH=1598917480
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/polkit
-cp COPYING %{buildroot}/usr/share/package-licenses/polkit/COPYING
-cp docs/polkit/html/license.html %{buildroot}/usr/share/package-licenses/polkit/docs_polkit_html_license.html
-cp test/mocklibc/COPYING %{buildroot}/usr/share/package-licenses/polkit/test_mocklibc_COPYING
+cp %{_builddir}/polkit-0.117/COPYING %{buildroot}/usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b
+cp %{_builddir}/polkit-0.117/docs/polkit/html/license.html %{buildroot}/usr/share/package-licenses/polkit/ad3ea1bdee758f528b9d0baa4f92e548d64180d9
+cp %{_builddir}/polkit-0.117/test/mocklibc/COPYING %{buildroot}/usr/share/package-licenses/polkit/2b8b815229aa8a61e483fb4ba0588b8b6c491890
 %make_install
 %find_lang polkit-1
 
@@ -224,9 +225,9 @@ cp test/mocklibc/COPYING %{buildroot}/usr/share/package-licenses/polkit/test_moc
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/polkit/COPYING
-/usr/share/package-licenses/polkit/docs_polkit_html_license.html
-/usr/share/package-licenses/polkit/test_mocklibc_COPYING
+/usr/share/package-licenses/polkit/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+/usr/share/package-licenses/polkit/ad3ea1bdee758f528b9d0baa4f92e548d64180d9
+/usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b
 
 %files services
 %defattr(-,root,root,-)
