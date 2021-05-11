@@ -6,7 +6,7 @@
 #
 Name     : polkit
 Version  : 0.118
-Release  : 23
+Release  : 24
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.118.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.118.tar.gz
 Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-0.118.tar.gz.sign
@@ -36,11 +36,13 @@ BuildRequires : libxslt-bin
 BuildRequires : m4
 BuildRequires : perl(XML::Parser)
 BuildRequires : pkg-config-dev
+BuildRequires : pkgconfig(dbus-python)
 BuildRequires : pkgconfig(gio-unix-2.0)
 BuildRequires : pkgconfig(gmodule-2.0)
 BuildRequires : pkgconfig(gobject-introspection-1.0)
 BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(mozjs-78)
+BuildRequires : python-dbusmock
 Patch1: 0001-data-Use-stateless-system-directories-for-d-bus-PAM-.patch
 Patch2: 0002-pkexec-Support-a-stateless-configuration.patch
 Patch3: 0003-Don-t-complain-about-etc-polkit-2-rules.d-missing.patch
@@ -132,7 +134,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1601936400
+export SOURCE_DATE_EPOCH=1620776260
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -141,11 +143,21 @@ export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sect
 export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
-%reconfigure --disable-static --disable-gtk-doc-html --disable-man-pages --enable-libsystemd-login --with-os-type=ClearLinux
+%reconfigure --disable-static --disable-gtk-doc-html \
+--disable-man-pages \
+--enable-libsystemd-login \
+--with-os-type=ClearLinux
 make  %{?_smp_mflags}
 
+%check
+export LANG=C.UTF-8
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
+make %{?_smp_mflags} check
+
 %install
-export SOURCE_DATE_EPOCH=1601936400
+export SOURCE_DATE_EPOCH=1620776260
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/polkit
 cp %{_builddir}/polkit-0.118/COPYING %{buildroot}/usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b

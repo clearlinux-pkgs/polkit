@@ -1,5 +1,5 @@
 # This file contains additional pkgconfig build requirements that did
 # not get picked up automatically. One name per line, no whitespace.
+dbus-python
 gobject-introspection-1.0
-mozjs-24
 libsystemd
