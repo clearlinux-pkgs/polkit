@@ -1,1 +1,4 @@
- --disable-gtk-doc-html --disable-man-pages --enable-libsystemd-login --with-os-type=ClearLinux
+--disable-gtk-doc-html
+--disable-man-pages
+--enable-libsystemd-login
+--with-os-type=ClearLinux
