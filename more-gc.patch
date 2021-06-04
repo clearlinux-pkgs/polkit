@@ -1,20 +1,22 @@
---- polkit-0.114/src/polkitbackend/polkitbackendjsauthority.cpp~	2018-04-03 18:16:49.000000000 +0000
-+++ polkit-0.114/src/polkitbackend/polkitbackendjsauthority.cpp	2018-04-21 15:10:03.610601873 +0000
-@@ -1169,7 +1169,7 @@
+diff --git a/src/polkitbackend/polkitbackendjsauthority.cpp b/src/polkitbackend/polkitbackendjsauthority.cpp
+index 415cfee..ccdfc54 100644
+--- a/src/polkitbackend/polkitbackendjsauthority.cpp
++++ b/src/polkitbackend/polkitbackendjsauthority.cpp
+@@ -1198,7 +1198,7 @@ polkit_backend_js_authority_get_admin_auth_identities (PolkitBackendInteractiveA
    if (ret == NULL)
      ret = g_list_prepend (ret, polkit_unix_user_new (0));
  
 -  JS_MaybeGC (authority->priv->cx);
 +  JS_GC (authority->priv->cx);
  
-   JS_EndRequest (authority->priv->cx);
- 
-@@ -1271,7 +1271,7 @@
+   return ret;
+ }
+@@ -1295,7 +1295,7 @@ polkit_backend_js_authority_check_authorization_sync (PolkitBackendInteractiveAu
+   if (!good)
      ret = POLKIT_IMPLICIT_AUTHORIZATION_NOT_AUTHORIZED;
-   g_free (ret_str);
  
 -  JS_MaybeGC (authority->priv->cx);
 +  JS_GC (authority->priv->cx);
  
-   JS_EndRequest (authority->priv->cx);
- 
+   return ret;
+ }

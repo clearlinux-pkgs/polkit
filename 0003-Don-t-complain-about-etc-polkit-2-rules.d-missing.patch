@@ -1,4 +1,4 @@
-From 4fcd23ea997e52370ef2ff2fa88da162518f8226 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Auke Kok <auke-jan.h.kok@intel.com>
 Date: Tue, 2 Apr 2019 16:23:32 -0700
 Subject: [PATCH] Don't complain about /etc/polkit-2/rules.d/ missing.
@@ -8,10 +8,10 @@ Subject: [PATCH] Don't complain about /etc/polkit-2/rules.d/ missing.
  1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/src/polkitbackend/polkitbackendjsauthority.cpp b/src/polkitbackend/polkitbackendjsauthority.cpp
-index 517f3c6..685e60c 100644
+index ca17108..415cfee 100644
 --- a/src/polkitbackend/polkitbackendjsauthority.cpp
 +++ b/src/polkitbackend/polkitbackendjsauthority.cpp
-@@ -278,10 +278,13 @@ load_scripts (PolkitBackendJsAuthority  *authority)
+@@ -282,10 +282,13 @@ load_scripts (PolkitBackendJsAuthority  *authority)
                          &error);
        if (dir == NULL)
          {
@@ -29,6 +29,3 @@ index 517f3c6..685e60c 100644
          }
        else
          {
--- 
-2.21.0
-

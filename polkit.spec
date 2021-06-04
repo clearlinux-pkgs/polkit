@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x8CEB3030FFDCE258 (jrybar@redhat.com)
 #
 Name     : polkit
-Version  : 0.118
-Release  : 24
-URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.118.tar.gz
-Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.118.tar.gz
-Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-0.118.tar.gz.sign
+Version  : 0.119
+Release  : 25
+URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.119.tar.gz
+Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.119.tar.gz
+Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-0.119.tar.gz.sign
 Summary  : PolicyKit Authorization API
 Group    : Development/Tools
 License  : Apache-2.0 LGPL-2.0
@@ -22,6 +22,7 @@ Requires: polkit-services = %{version}-%{release}
 BuildRequires : Linux-PAM-dev
 BuildRequires : automake
 BuildRequires : automake-dev
+BuildRequires : buildreq-meson
 BuildRequires : docbook-xml
 BuildRequires : expat-dev
 BuildRequires : gettext
@@ -122,8 +123,8 @@ services components for the polkit package.
 
 
 %prep
-%setup -q -n polkit-0.118
-cd %{_builddir}/polkit-0.118
+%setup -q -n polkit-0.119
+cd %{_builddir}/polkit-0.119
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -134,7 +135,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1620776260
+export SOURCE_DATE_EPOCH=1622776999
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -157,12 +158,12 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1620776260
+export SOURCE_DATE_EPOCH=1622776999
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/polkit
-cp %{_builddir}/polkit-0.118/COPYING %{buildroot}/usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b
-cp %{_builddir}/polkit-0.118/docs/polkit/html/license.html %{buildroot}/usr/share/package-licenses/polkit/ad3ea1bdee758f528b9d0baa4f92e548d64180d9
-cp %{_builddir}/polkit-0.118/test/mocklibc/COPYING %{buildroot}/usr/share/package-licenses/polkit/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/polkit-0.119/COPYING %{buildroot}/usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b
+cp %{_builddir}/polkit-0.119/docs/polkit/html/license.html %{buildroot}/usr/share/package-licenses/polkit/ad3ea1bdee758f528b9d0baa4f92e548d64180d9
+cp %{_builddir}/polkit-0.119/test/mocklibc/COPYING %{buildroot}/usr/share/package-licenses/polkit/2b8b815229aa8a61e483fb4ba0588b8b6c491890
 %make_install
 %find_lang polkit-1
 
