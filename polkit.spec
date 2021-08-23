@@ -6,7 +6,7 @@
 #
 Name     : polkit
 Version  : 0.119
-Release  : 25
+Release  : 26
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.119.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.119.tar.gz
 Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-0.119.tar.gz.sign
@@ -135,15 +135,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1622776999
+export SOURCE_DATE_EPOCH=1629757724
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
-export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
-export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
-export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 %reconfigure --disable-static --disable-gtk-doc-html \
 --disable-man-pages \
 --enable-libsystemd-login \
@@ -158,7 +158,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1622776999
+export SOURCE_DATE_EPOCH=1629757724
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/polkit
 cp %{_builddir}/polkit-0.119/COPYING %{buildroot}/usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b
