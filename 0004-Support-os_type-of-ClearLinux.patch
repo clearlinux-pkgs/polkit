@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Patrick McCarty <patrick.mccarty@intel.com>
+Date: Mon, 4 Oct 2021 10:28:02 -0700
+Subject: [PATCH] Support os_type of ClearLinux
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ meson_options.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson_options.txt b/meson_options.txt
+index 25e3e77..6dc0210 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -4,7 +4,7 @@ option('systemdsystemunitdir', type: 'string', value: '', description: 'custom d
+ option('polkitd_user', type: 'string', value: 'polkitd', description: 'User for running polkitd (polkitd)')
+ 
+ option('authfw', type: 'combo', choices: ['pam', 'shadow', 'bsdauth'], value: 'pam', description: 'Authentication framework (pam/shadow)')
+-option('os_type', type: 'combo', choices: ['redhat', 'suse', 'gentoo', 'pardus', 'solaris', 'netbsd', ''], value: '', description: 'distribution or OS')
++option('os_type', type: 'combo', choices: ['redhat', 'suse', 'gentoo', 'pardus', 'solaris', 'netbsd', 'ClearLinux', ''], value: '', description: 'distribution or OS')
+ 
+ option('pam_include', type: 'string', value: '', description: 'pam file to include')
+ option('pam_module_dir', type: 'string', value: '', description: 'directory to install PAM security module')

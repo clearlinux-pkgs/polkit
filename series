@@ -1,4 +1,5 @@
 0001-data-Use-stateless-system-directories-for-d-bus-PAM-.patch
 0002-pkexec-Support-a-stateless-configuration.patch
 0003-Don-t-complain-about-etc-polkit-2-rules.d-missing.patch
+0004-Support-os_type-of-ClearLinux.patch
 more-gc.patch

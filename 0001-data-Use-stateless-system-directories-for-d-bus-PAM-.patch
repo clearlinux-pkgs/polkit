@@ -6,37 +6,38 @@ Subject: [PATCH] data: Use stateless system directories for d-bus, PAM and
 
 [2021-06-03]: In the 0.119 release, the D-Bus policy file is now read from the
               /usr/share location, so we dropped that part of the patch.
+[2021-10-04]: Port from autotools to meson.
 
 Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
 Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
 ---
- data/Makefile.am              | 2 +-
- src/polkitbackend/Makefile.am | 2 +-
+ data/meson.build              | 2 +-
+ src/polkitbackend/meson.build | 2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/data/Makefile.am b/data/Makefile.am
-index e805260..c29f296 100644
---- a/data/Makefile.am
-+++ b/data/Makefile.am
-@@ -25,7 +25,7 @@ $(dbusconf_DATA): $(dbusconf_in_files) Makefile
- # ----------------------------------------------------------------------------------------------------
- 
- if POLKIT_AUTHFW_PAM
--pamdir = $(sysconfdir)/pam.d
-+pamdir = $(datadir)/pam.d
- pam_DATA = polkit-1
+diff --git a/data/meson.build b/data/meson.build
+index 073bd98..34fedbb 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -22,7 +22,7 @@ if enable_pam
+     output: '@BASENAME@',
+     configuration: pam_conf,
+     install: true,
+-    install_dir: pk_sysconfdir / 'pam.d',
++    install_dir: pk_datadir / 'pam.d',
+   )
  endif
  
-diff --git a/src/polkitbackend/Makefile.am b/src/polkitbackend/Makefile.am
-index 7e3c080..a1295da 100644
---- a/src/polkitbackend/Makefile.am
-+++ b/src/polkitbackend/Makefile.am
-@@ -64,7 +64,7 @@ libpolkit_backend_1_la_LIBADD =                               		\
- 	$(LIBJS_LIBS)							\
-         $(NULL)
+diff --git a/src/polkitbackend/meson.build b/src/polkitbackend/meson.build
+index 64f0e4a..515b171 100644
+--- a/src/polkitbackend/meson.build
++++ b/src/polkitbackend/meson.build
+@@ -50,7 +50,7 @@ libpolkit_backend = static_library(
  
--rulesdir = $(sysconfdir)/polkit-1/rules.d
-+rulesdir = $(datadir)/polkit-1/rules.d
- rules_DATA = 50-default.rules
+ install_data(
+   '50-default.rules',
+-  install_dir: pk_pkgsysconfdir / 'rules.d',
++  install_dir: pk_pkgdatadir / 'rules.d',
+ )
  
- # ----------------------------------------------------------------------------------------------------
+ program = 'polkitd'

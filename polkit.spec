@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x8CEB3030FFDCE258 (jrybar@redhat.com)
 #
 Name     : polkit
-Version  : 0.119
-Release  : 26
-URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.119.tar.gz
-Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.119.tar.gz
-Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-0.119.tar.gz.sign
+Version  : 0.120
+Release  : 28
+URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
+Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
+Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz.sign
 Summary  : PolicyKit Authorization API
 Group    : Development/Tools
 License  : Apache-2.0 LGPL-2.0
@@ -20,23 +20,15 @@ Requires: polkit-license = %{version}-%{release}
 Requires: polkit-locales = %{version}-%{release}
 Requires: polkit-services = %{version}-%{release}
 BuildRequires : Linux-PAM-dev
-BuildRequires : automake
-BuildRequires : automake-dev
 BuildRequires : buildreq-meson
 BuildRequires : docbook-xml
 BuildRequires : expat-dev
 BuildRequires : gettext
-BuildRequires : gettext-bin
 BuildRequires : gtk-doc
 BuildRequires : gtk-doc-dev
-BuildRequires : intltool
 BuildRequires : intltool-dev
-BuildRequires : libtool
-BuildRequires : libtool-dev
 BuildRequires : libxslt-bin
-BuildRequires : m4
 BuildRequires : perl(XML::Parser)
-BuildRequires : pkg-config-dev
 BuildRequires : pkgconfig(dbus-python)
 BuildRequires : pkgconfig(gio-unix-2.0)
 BuildRequires : pkgconfig(gmodule-2.0)
@@ -47,7 +39,8 @@ BuildRequires : python-dbusmock
 Patch1: 0001-data-Use-stateless-system-directories-for-d-bus-PAM-.patch
 Patch2: 0002-pkexec-Support-a-stateless-configuration.patch
 Patch3: 0003-Don-t-complain-about-etc-polkit-2-rules.d-missing.patch
-Patch4: more-gc.patch
+Patch4: 0004-Support-os_type-of-ClearLinux.patch
+Patch5: more-gc.patch
 
 %description
 OVERVIEW
@@ -123,19 +116,20 @@ services components for the polkit package.
 
 
 %prep
-%setup -q -n polkit-0.119
-cd %{_builddir}/polkit-0.119
+%setup -q -n polkit-0.120
+cd %{_builddir}/polkit-0.120
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1629757724
+export SOURCE_DATE_EPOCH=1633369758
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -144,27 +138,26 @@ export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sect
 export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
-%reconfigure --disable-static --disable-gtk-doc-html \
---disable-man-pages \
---enable-libsystemd-login \
---with-os-type=ClearLinux
-make  %{?_smp_mflags}
+CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dgtk_doc=false \
+-Dman=false \
+-Dsession_tracking=libsystemd-login \
+-Dos_type=ClearLinux \
+-Dexamples=true  builddir
+ninja -v -C builddir
 
 %check
 export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make %{?_smp_mflags} check
+meson test -C builddir --print-errorlogs
 
 %install
-export SOURCE_DATE_EPOCH=1629757724
-rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/polkit
-cp %{_builddir}/polkit-0.119/COPYING %{buildroot}/usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b
-cp %{_builddir}/polkit-0.119/docs/polkit/html/license.html %{buildroot}/usr/share/package-licenses/polkit/ad3ea1bdee758f528b9d0baa4f92e548d64180d9
-cp %{_builddir}/polkit-0.119/test/mocklibc/COPYING %{buildroot}/usr/share/package-licenses/polkit/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-%make_install
+cp %{_builddir}/polkit-0.120/COPYING %{buildroot}/usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b
+cp %{_builddir}/polkit-0.120/docs/polkit/html/license.html %{buildroot}/usr/share/package-licenses/polkit/0cc953a2f5a9f3b0cd3ba6e7e1f4f1f456786f13
+cp %{_builddir}/polkit-0.120/test/mocklibc/COPYING %{buildroot}/usr/share/package-licenses/polkit/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang polkit-1
 
 %files
@@ -238,8 +231,8 @@ cp %{_builddir}/polkit-0.119/test/mocklibc/COPYING %{buildroot}/usr/share/packag
 
 %files license
 %defattr(0644,root,root,0755)
+/usr/share/package-licenses/polkit/0cc953a2f5a9f3b0cd3ba6e7e1f4f1f456786f13
 /usr/share/package-licenses/polkit/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-/usr/share/package-licenses/polkit/ad3ea1bdee758f528b9d0baa4f92e548d64180d9
 /usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b
 
 %files services

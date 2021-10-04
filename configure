@@ -1,4 +1,5 @@
---disable-gtk-doc-html
---disable-man-pages
---enable-libsystemd-login
---with-os-type=ClearLinux
+-Dgtk_doc=false
+-Dman=false
+-Dsession_tracking=libsystemd-login
+-Dos_type=ClearLinux
+-Dexamples=true
