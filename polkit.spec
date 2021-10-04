@@ -6,7 +6,7 @@
 #
 Name     : polkit
 Version  : 0.120
-Release  : 28
+Release  : 29
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
 Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz.sign
@@ -19,6 +19,7 @@ Requires: polkit-lib = %{version}-%{release}
 Requires: polkit-license = %{version}-%{release}
 Requires: polkit-locales = %{version}-%{release}
 Requires: polkit-services = %{version}-%{release}
+Requires: polkit-setuid = %{version}-%{release}
 BuildRequires : Linux-PAM-dev
 BuildRequires : buildreq-meson
 BuildRequires : docbook-xml
@@ -53,6 +54,7 @@ processes.
 Summary: bin components for the polkit package.
 Group: Binaries
 Requires: polkit-data = %{version}-%{release}
+Requires: polkit-setuid = %{version}-%{release}
 Requires: polkit-license = %{version}-%{release}
 Requires: polkit-services = %{version}-%{release}
 
@@ -115,6 +117,14 @@ Group: Systemd services
 services components for the polkit package.
 
 
+%package setuid
+Summary: setuid components for the polkit package.
+Group: Default
+
+%description setuid
+setuid components for the polkit package.
+
+
 %prep
 %setup -q -n polkit-0.120
 cd %{_builddir}/polkit-0.120
@@ -129,7 +139,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1633369758
+export SOURCE_DATE_EPOCH=1633371337
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -162,7 +172,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/polkit-1/polkit-agent-helper-1
 /usr/lib/polkit-1/polkitd
 
 %files bin
@@ -170,7 +179,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/bin/pk-example-frobnicate
 /usr/bin/pkaction
 /usr/bin/pkcheck
-/usr/bin/pkexec
 /usr/bin/pkttyagent
 
 %files data
@@ -238,6 +246,11 @@ DESTDIR=%{buildroot} ninja -C builddir install
 %files services
 %defattr(-,root,root,-)
 /usr/lib/systemd/system/polkit.service
+
+%files setuid
+%defattr(-,root,root,-)
+%attr(4755, root, root) /usr/bin/pkexec
+%attr(4755, root, root) /usr/lib/polkit-1/polkit-agent-helper-1
 
 %files locales -f polkit-1.lang
 %defattr(-,root,root,-)
