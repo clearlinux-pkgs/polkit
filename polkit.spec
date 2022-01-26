@@ -6,7 +6,7 @@
 #
 Name     : polkit
 Version  : 0.120
-Release  : 29
+Release  : 30
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
 Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz.sign
@@ -42,6 +42,7 @@ Patch2: 0002-pkexec-Support-a-stateless-configuration.patch
 Patch3: 0003-Don-t-complain-about-etc-polkit-2-rules.d-missing.patch
 Patch4: 0004-Support-os_type-of-ClearLinux.patch
 Patch5: more-gc.patch
+Patch6: CVE-2021-4034.patch
 
 %description
 OVERVIEW
@@ -133,13 +134,14 @@ cd %{_builddir}/polkit-0.120
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1633371337
+export SOURCE_DATE_EPOCH=1643159239
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib

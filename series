@@ -3,3 +3,4 @@
 0003-Don-t-complain-about-etc-polkit-2-rules.d-missing.patch
 0004-Support-os_type-of-ClearLinux.patch
 more-gc.patch
+CVE-2021-4034.patch
