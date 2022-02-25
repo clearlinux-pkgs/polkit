@@ -6,7 +6,7 @@
 #
 Name     : polkit
 Version  : 0.120
-Release  : 30
+Release  : 31
 URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
 Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
 Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz.sign
@@ -36,7 +36,7 @@ BuildRequires : pkgconfig(gmodule-2.0)
 BuildRequires : pkgconfig(gobject-introspection-1.0)
 BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(mozjs-78)
-BuildRequires : python-dbusmock
+BuildRequires : pypi-python_dbusmock
 Patch1: 0001-data-Use-stateless-system-directories-for-d-bus-PAM-.patch
 Patch2: 0002-pkexec-Support-a-stateless-configuration.patch
 Patch3: 0003-Don-t-complain-about-etc-polkit-2-rules.d-missing.patch
@@ -141,7 +141,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1643159239
+export SOURCE_DATE_EPOCH=1645805818
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
