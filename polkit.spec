@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x8CEB3030FFDCE258 (jrybar@redhat.com)
 #
 Name     : polkit
-Version  : 0.120
-Release  : 31
-URL      : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
-Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz
-Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-0.120.tar.gz.sign
+Version  : 121
+Release  : 32
+URL      : https://www.freedesktop.org/software/polkit/releases/polkit-121.tar.gz
+Source0  : https://www.freedesktop.org/software/polkit/releases/polkit-121.tar.gz
+Source1  : https://www.freedesktop.org/software/polkit/releases/polkit-121.tar.gz.sign
 Summary  : PolicyKit Authorization API
 Group    : Development/Tools
 License  : Apache-2.0 LGPL-2.0
@@ -22,27 +22,18 @@ Requires: polkit-services = %{version}-%{release}
 Requires: polkit-setuid = %{version}-%{release}
 BuildRequires : Linux-PAM-dev
 BuildRequires : buildreq-meson
-BuildRequires : docbook-xml
 BuildRequires : expat-dev
-BuildRequires : gettext
-BuildRequires : gtk-doc
-BuildRequires : gtk-doc-dev
 BuildRequires : intltool-dev
-BuildRequires : libxslt-bin
-BuildRequires : perl(XML::Parser)
 BuildRequires : pkgconfig(dbus-python)
-BuildRequires : pkgconfig(gio-unix-2.0)
-BuildRequires : pkgconfig(gmodule-2.0)
+BuildRequires : pkgconfig(duktape)
 BuildRequires : pkgconfig(gobject-introspection-1.0)
 BuildRequires : pkgconfig(libsystemd)
-BuildRequires : pkgconfig(mozjs-78)
 BuildRequires : pypi-python_dbusmock
 Patch1: 0001-data-Use-stateless-system-directories-for-d-bus-PAM-.patch
 Patch2: 0002-pkexec-Support-a-stateless-configuration.patch
 Patch3: 0003-Don-t-complain-about-etc-polkit-2-rules.d-missing.patch
 Patch4: 0004-Support-os_type-of-ClearLinux.patch
 Patch5: more-gc.patch
-Patch6: CVE-2021-4034.patch
 
 %description
 OVERVIEW
@@ -127,21 +118,20 @@ setuid components for the polkit package.
 
 
 %prep
-%setup -q -n polkit-0.120
-cd %{_builddir}/polkit-0.120
+%setup -q -n polkit-v.121
+cd %{_builddir}/polkit-v.121
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1645805818
+export SOURCE_DATE_EPOCH=1657561946
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -166,9 +156,8 @@ meson test -C builddir --print-errorlogs
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/polkit
-cp %{_builddir}/polkit-0.120/COPYING %{buildroot}/usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b
-cp %{_builddir}/polkit-0.120/docs/polkit/html/license.html %{buildroot}/usr/share/package-licenses/polkit/0cc953a2f5a9f3b0cd3ba6e7e1f4f1f456786f13
-cp %{_builddir}/polkit-0.120/test/mocklibc/COPYING %{buildroot}/usr/share/package-licenses/polkit/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/polkit-v.121/COPYING %{buildroot}/usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b
+cp %{_builddir}/polkit-v.121/test/mocklibc/COPYING %{buildroot}/usr/share/package-licenses/polkit/2b8b815229aa8a61e483fb4ba0588b8b6c491890
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang polkit-1
 
@@ -195,6 +184,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/share/pam.d/polkit-1
 /usr/share/polkit-1/actions/org.freedesktop.policykit.examples.pkexec.policy
 /usr/share/polkit-1/actions/org.freedesktop.policykit.policy
+/usr/share/polkit-1/policyconfig-1.dtd
 /usr/share/polkit-1/rules.d/50-default.rules
 
 %files dev
@@ -241,7 +231,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/polkit/0cc953a2f5a9f3b0cd3ba6e7e1f4f1f456786f13
 /usr/share/package-licenses/polkit/2b8b815229aa8a61e483fb4ba0588b8b6c491890
 /usr/share/package-licenses/polkit/d83b6378d06fdf228b1afc0bf97e09b44bbb2e7b
 
