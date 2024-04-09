@@ -3,3 +3,4 @@
 -Dsession_tracking=libsystemd-login
 -Dos_type=ClearLinux
 -Dexamples=true
+-Dpam_prefix=/usr/share/pam.d/

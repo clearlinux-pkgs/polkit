@@ -7,7 +7,7 @@
 #
 Name     : polkit
 Version  : 124
-Release  : 34
+Release  : 35
 URL      : https://gitlab.freedesktop.org/polkit/polkit/-/archive/124/polkit-124.tar.gz
 Source0  : https://gitlab.freedesktop.org/polkit/polkit/-/archive/124/polkit-124.tar.gz
 Summary  : PolicyKit Authentication Agent API
@@ -146,7 +146,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1712620845
+export SOURCE_DATE_EPOCH=1712621089
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -166,14 +166,16 @@ meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dgtk_doc=false \
 -Dman=false \
 -Dsession_tracking=libsystemd-login \
 -Dos_type=ClearLinux \
--Dexamples=true  builddir
+-Dexamples=true \
+-Dpam_prefix=/usr/share/pam.d/  builddir
 ninja -v -C builddir
 GOAMD64=v3
 CFLAGS="$CFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 " CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 " LDFLAGS="$LDFLAGS -march=x86-64-v3 " meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dgtk_doc=false \
 -Dman=false \
 -Dsession_tracking=libsystemd-login \
 -Dos_type=ClearLinux \
--Dexamples=true  builddiravx2
+-Dexamples=true \
+-Dpam_prefix=/usr/share/pam.d/  builddiravx2
 ninja -v -C builddiravx2
 
 %check
@@ -212,7 +214,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 %files
 %defattr(-,root,root,-)
 /V3/usr/lib/polkit-1/polkitd
-/usr/lib/pam.d/polkit-1
 /usr/lib/polkit-1/polkitd
 
 %files bin
@@ -239,6 +240,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/share/gettext/its/polkit.its
 /usr/share/gettext/its/polkit.loc
 /usr/share/gir-1.0/*.gir
+/usr/share/pam.d/polkit-1
 /usr/share/polkit-1/actions/org.freedesktop.policykit.examples.pkexec.policy
 /usr/share/polkit-1/actions/org.freedesktop.policykit.policy
 /usr/share/polkit-1/policyconfig-1.dtd
