@@ -28,16 +28,3 @@ index 073bd98..34fedbb 100644
    )
  endif
  
-diff --git a/src/polkitbackend/meson.build b/src/polkitbackend/meson.build
-index 64f0e4a..515b171 100644
---- a/src/polkitbackend/meson.build
-+++ b/src/polkitbackend/meson.build
-@@ -50,7 +50,7 @@ libpolkit_backend = static_library(
- 
- install_data(
-   '50-default.rules',
--  install_dir: pk_pkgsysconfdir / 'rules.d',
-+  install_dir: pk_pkgdatadir / 'rules.d',
- )
- 
- program = 'polkitd'

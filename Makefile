@@ -1,5 +1,5 @@
 PKG_NAME := polkit
-URL = https://www.freedesktop.org/software/polkit/releases/polkit-121.tar.gz
+URL = https://gitlab.freedesktop.org/polkit/polkit/-/archive/124/polkit-124.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
